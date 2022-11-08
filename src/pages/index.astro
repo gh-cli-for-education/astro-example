@@ -1,10 +1,39 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { injectFrontmatter } from '@utils/inject_frontmatter';
+
+interface Frontmatter {
+  title: string;
+  summary: string;
+}
+
+const lessons = await Astro.glob<Frontmatter>('../../lessons/*.md');
 ---
 
 <BaseLayout title="Clases">
   <main>
-    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
+    <h2>Clases</h2>
+    <ul>
+      {
+        lessons.reverse().map(async ({ url, frontmatter }) => {
+          const { title, summary } = frontmatter;
+
+          const summaryMd = await injectFrontmatter(summary, {});
+
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          return (
+            <li>
+              <a href={url}>{title}</a>
+              <ul>
+                <li>
+                  <Fragment set:html={summaryMd} />
+                </li>
+              </ul>
+            </li>
+          );
+        })
+      }
+    </ul>
   </main>
 </BaseLayout>
 
