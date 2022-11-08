@@ -1,0 +1,58 @@
+---
+interface Frontmatter {
+  title: string;
+  date: string;
+  key?: string;
+}
+
+const lessons = await Astro.glob<Frontmatter>('../../practices/*.md');
+lessons.sort((first, second) => {
+  const firstDate = new Date(first.frontmatter.date);
+  const secondDate = new Date(second.frontmatter.date);
+
+  return firstDate.getTime() - secondDate.getTime();
+});
+---
+
+<h2>Prácticas Publicadas</h2>
+<ol>
+  {
+    lessons.map(({ file, frontmatter }) => {
+      const { title, key } = frontmatter;
+      const name = file.split('/').at(-1)?.split('.md')[0] as string;
+      const url = `/practices/${name}`;
+
+      return (
+        <li>
+          <a href={url}>Descripción de la Práctica {title}</a>
+          <ul>
+            {key && (
+              <>
+                <li>
+                  Repos en GH:{' '}
+                  <a
+                    href={`https://github.com/orgs/ULL-MFP-AET-2223/repositories?q=${key}&type=all&language=&sort=`}
+                    target="_blank"
+                  >
+                    {key}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`/assets/tareas/${key}/activity.html`}
+                    target="_blank"
+                  >
+                    Grafos de Actividad de los Alumnos para {key}
+                  </a>
+                </li>
+              </>
+            )}
+            <li>
+              <a href={`${url}#rúbrica`}>Rúbrica</a>
+            </li>
+          </ul>
+        </li>
+      );
+    })
+  }
+</ol>
