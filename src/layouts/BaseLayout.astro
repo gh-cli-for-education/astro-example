@@ -48,6 +48,7 @@ const { title } = Astro.props;
 
       <slot />
 
+      <h2>Your Comments</h2>
       <script
         src="https://giscus.app/client.js"
         data-repo="alu0101329093/astro-example"
@@ -89,14 +90,15 @@ const { title } = Astro.props;
       }
 
       .title {
+        font-family: 'OpenSansLight', 'Helvetica Neue', Helvetica, Arial,
+          sans-serif;
         text-align: center;
         border-bottom: 4px solid #434343;
+        margin-bottom: 2em;
       }
 
       h1 {
-        font-weight: 400;
         font-size: 40px;
-        color: #460505;
         margin: 0.3em 0;
       }
 
@@ -109,7 +111,7 @@ const { title } = Astro.props;
 
       .body {
         margin: auto;
-        max-width: 70ch;
+        max-width: 90ch;
       }
     </style>
 
@@ -124,8 +126,10 @@ const { title } = Astro.props;
         );
       }
       html {
-        font-family: system-ui, sans-serif;
-        background-color: #f6f6f6;
+        /* font: 14px system-ui, sans-serif; */
+        font: 14px/1.5 'OpenSansRegular', 'Helvetica Neue', Helvetica, Arial,
+          sans-serif;
+        background-color: white;
       }
       code {
         font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
@@ -134,6 +138,27 @@ const { title } = Astro.props;
 
       body {
         margin: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: #460505;
+        margin: 0 0 10px;
+        font-weight: normal;
+      }
+
+      a {
+        color: #3b03a3;
+        font-weight: 400;
+        text-decoration: none;
+      }
+
+      h2 {
+        font-size: 24px;
       }
     </style>
   </body>
