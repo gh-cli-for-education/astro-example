@@ -1,0 +1,46 @@
+---
+export interface Props {
+  title: string;
+  href: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+}
+
+const { title, href, target = '_self' } = Astro.props;
+---
+
+<li>
+  <a title={title} href={href} target={target}>
+    <slot />
+  </a>
+</li>
+
+<style>
+  li {
+    background: linear-gradient(#bd20bd, #25109e);
+    margin: 0 0.2em;
+    width: 2em;
+    height: 2em;
+    padding: 0.25em;
+    border: 0.05em solid #5d910b;
+    border-radius: 0.25em;
+    box-shadow: inset 0.5px 1px 0px rgba(255, 255, 255, 0.3),
+      2px 3px 3px rgba(0, 0, 0, 0.7);
+  }
+
+  li:hover {
+    margin: calc(0.2em + 1px) calc(0.2em - 1px) calc(0.2em - 1px)
+      calc(0.2em + 1px);
+    box-shadow: inset 0.5px 1px 0px rgba(255, 255, 255, 0.3),
+      inset 2px 3px 3px rgba(0, 0, 0, 0.7);
+  }
+
+  a {
+    line-height: 2em;
+    height: 2em;
+    margin: auto;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    display: block;
+  }
+</style>
