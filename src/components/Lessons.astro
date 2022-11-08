@@ -1,0 +1,33 @@
+---
+import { injectFrontmatter } from '@utils/inject_frontmatter';
+
+interface Frontmatter {
+  title: string;
+  summary: string;
+}
+
+const lessons = await Astro.glob<Frontmatter>('../../lessons/*.md');
+---
+
+<h2>Clases</h2>
+<ul>
+  {
+    lessons.reverse().map(async ({ file, frontmatter }) => {
+      const { title, summary } = frontmatter;
+      const name = file.split('/').at(-1)?.split('.md')[0] as string;
+
+      const summaryMd = await injectFrontmatter(summary, {});
+
+      return (
+        <li>
+          <a href={`/lessons/${name}`}>{title}</a>
+          <ul>
+            <li>
+              <Fragment set:html={summaryMd} />
+            </li>
+          </ul>
+        </li>
+      );
+    })
+  }
+</ul>

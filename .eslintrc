@@ -43,6 +43,9 @@
         "extraFileExtensions": [".astro"]
       },
       "rules": {
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-return": "off"
+
         // override/add rules settings here, such as:
         // "astro/no-set-html-directive": "error"
       }
@@ -54,6 +57,13 @@
       {
         "assert": "either"
       }
+    ],
+    "import/prefer-default-export": "off",
+    "no-restricted-syntax": [
+      "error",
+      "ForInStatement",
+      "LabeledStatement",
+      "WithStatement"
     ]
   }
 }
