@@ -1,0 +1,42 @@
+---
+import { injectFrontmatter } from '@utils/inject_frontmatter';
+import type { Frontmatter } from '@utils/inject_frontmatter';
+import type { MarkdownInstance } from 'astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export interface Params {
+  name: string;
+}
+
+export interface Props {
+  lesson: MarkdownInstance<Record<string, unknown>>;
+}
+
+export const getStaticPaths = async () => {
+  const lessons = await Astro.glob('../../../lessons/*.md');
+
+  return lessons.map((lesson) => {
+    const name = lesson.file.split('/').at(-1)?.split('.md')[0];
+    return {
+      params: {
+        name,
+      },
+      props: {
+        lesson,
+      },
+    };
+  });
+};
+
+const { name } = Astro.params;
+const { lesson } = Astro.props;
+
+const content = await injectFrontmatter(
+  lesson.rawContent(),
+  lesson.frontmatter as Frontmatter
+);
+---
+
+<BaseLayout title={name as string}>
+  <Fragment set:html={content} />
+</BaseLayout>
