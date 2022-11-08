@@ -12,15 +12,15 @@ const lessons = await Astro.glob<Frontmatter>('../../lessons/*.md');
 <h2>Clases</h2>
 <ul>
   {
-    lessons.reverse().map(async ({ url, frontmatter }) => {
+    lessons.reverse().map(async ({ file, frontmatter }) => {
       const { title, summary } = frontmatter;
+      const name = file.split('/').at(-1)?.split('.md')[0] as string;
 
       const summaryMd = await injectFrontmatter(summary, {});
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return (
         <li>
-          <a href={url}>{title}</a>
+          <a href={`/lessons/${name}`}>{title}</a>
           <ul>
             <li>
               <Fragment set:html={summaryMd} />
