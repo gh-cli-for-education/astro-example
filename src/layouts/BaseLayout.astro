@@ -1,4 +1,5 @@
 ---
+import { User } from '@components/User';
 import NavItem from '@components/NavItem.astro';
 
 export interface Props {
@@ -35,6 +36,7 @@ const { title } = Astro.props;
           <NavItem href="/lessons" title="Clases">👨‍🏫</NavItem>
         </ul>
       </nav>
+      <User client:idle />
     </header>
 
     <div class="body">
@@ -70,6 +72,9 @@ const { title } = Astro.props;
     <style>
       header {
         border-bottom: 4px solid #434343;
+        /* display: flex;
+        flex-direction: row; */
+        /* align-items: center; */
       }
 
       nav {
