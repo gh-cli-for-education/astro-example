@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getAllUsers } from 'src/lib/users';
+
+const users = await getAllUsers();
+// const users = [{ mail: 'meh', role: 'meh' }];
+---
+
+<BaseLayout title="Users">
+  <h1>
+    {
+      users.map((user) => (
+        <li>
+          {user.mail}, {user.role}
+        </li>
+      ))
+    }
+  </h1>
+</BaseLayout>
