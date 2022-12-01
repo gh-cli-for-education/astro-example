@@ -1,0 +1,28 @@
+---
+layout: '@layouts/BaseLayout.astro'
+title: 'Glossary'
+tutu: 4
+draft: true
+---
+
+import glossary from '@pages/data/glossary.json';
+
+# Glossary
+
+{Object.keys(glossary).map((key) =>
+
+<>
+  <h2>{key}</h2>
+  <p>{glossary[key]}</p>
+</>
+)}
+
+# Pruebas
+
+[{frontmatter.title}]({frontmatter.title})
+
+<a href={frontmatter.title}>{frontmatter.title}</a>
+
+({frontmatter.title})
+
+# GitHub Classroom Glossary
