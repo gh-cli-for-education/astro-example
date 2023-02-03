@@ -6,6 +6,7 @@ export const all = AstroAuth({
     GithubProvider({
       clientId: import.meta.env.GITHUB_CLIENT_ID as string,
       clientSecret: import.meta.env.GITHUB_CLIENT_SECRET as string,
+      scope: 'read:org',
     }),
   ],
 });
